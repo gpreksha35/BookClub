@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Swoon Society</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- 🔐 SIMPLE PASSWORD PROTECTION -->
+<script>
+  const PASSWORD = "tss_bookclub";
+  const input = prompt("🔐 This journal is private. Enter password:");
+  if (input !== PASSWORD) {
+    document.documentElement.innerHTML = "";
+    alert("Access denied 💔");
+  }
+</script>
+
+<style>
+:root {
+  --bg: #fff6f1;
+  --card: #ffffff;
+  --accent: #e26d5c;
+  --accent-2: #6a4c93;
+  --accent-soft: #fde2d8;
+  --text: #2e1f1f;
+  --muted: #7a5c5c;
+}
+
+* { box-sizing: border-box; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: linear-gradient(180deg, var(--bg), #fff);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(255,246,241,0.92);
+  backdrop-filter: blur(10px);
+  padding: 12px 18px;
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  z-index: 100;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--accent-2);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* HERO */
+header {
+  padding: 85px 20px 65px;
+  text-align: center;
+  background:
+    radial-gradient(circle at top, #ffd6cc, transparent 60%),
+    linear-gradient(135deg, #ffe3d8, #f3d1f4);
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.7rem;
+  margin-bottom: 12px;
+}
+
+header p {
+  max-width: 720px;
+  margin: auto;
+  font-style: italic;
+}
+
+/* SECTIONS */
+section {
+  max-width: 1000px;
+  margin: auto;
+  padding: 55px 20px;
+}
+
+section + section {
+  border-top: 1px dashed var(--accent-soft);
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--accent-2);
+  margin-bottom: 26px;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border-radius: 24px;
+  padding: 30px;
+  margin-bottom: 26px;
+  box-shadow: 0 26px 55px rgba(226,109,92,0.14);
+}
+
+/* BOOK BLOCK */
+.book {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.book img {
+  width: 150px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 18px 32px rgba(0,0,0,0.25);
+}
+
+.book-details {
+  flex: 1;
+  min-width: 220px;
+}
+
+.label {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* RATINGS */
+.ratings {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.rating-block {
+  background: linear-gradient(135deg, #ffe8df, #fff1eb);
+  padding: 10px 14px;
+  border-radius: 14px;
+  min-width: 120px;
+}
+
+.rating-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stars {
+  font-size: 1.05rem;
+}
+
+.rating-number {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* NOTES */
+.notes {
+  background: linear-gradient(135deg, #fff0ea, #fef7ff);
+  border-left: 5px solid var(--accent);
+  padding: 22px 26px;
+  border-radius: 18px;
+  margin-top: 20px;
+}
+
+.book-placeholder {
+  width: 150px;
+  aspect-ratio: 2 / 3;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ffe3d8, #f3d1f4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 18px 32px rgba(0,0,0,0.15);
+}
+
+
+/* PHOTO GRID */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  margin-top: 24px;
+}
+
+.photo-card {
+  max-width: 220px;
+  height: 260px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 30px rgba(0,0,0,0.18);
+}
+
+.photo-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+/* BOOKSHELF */
+.bookshelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+  gap: 22px;
+}
+
+.bookshelf img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+/* RECOMMENDATIONS */
+.reco-intro {
+  max-width: 800px;
+  margin-bottom: 22px;
+  color: var(--muted);
+}
+
+.reco-card h3 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.reco-card ul {
+  padding-left: 18px;
+}
+
+.reco-card li {
+  margin-bottom: 6px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 45px 20px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .book { flex-direction: column; }
+  .photo-card { height: 230px; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#reads">Reads</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#bookshelf">Bookshelf</a>
+  <a href="#recommendations">Recommendations</a>
+</nav>
+
+<header>
+  <h1>The Swoon Society 💖</h1>
+  <p>Romance reads, emotional damage, fictional men, and stories we spiral over together 😅✨</p>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2>💖 About This Club</h2>
+  <div class="card">
+    <p><strong>Our goal:</strong> to read romance-focused stories where the love story always runs alongside the main plot.</p>
+
+    <p><strong>Genres we love:</strong></p>
+    <ul>
+      <li>Romance</li>
+      <li>Sports Romance</li>
+      <li>Dark Romance</li>
+      <li>Fantasy / Romantasy</li>
+    </ul>
+
+    <p>
+      We alternate between <strong>dark romance</strong> and <strong>other romance sub-genres</strong> each month,
+      keeping our reading experience balanced between intense, darker stories and lighter emotional romances.
+    </p>
+
+    <p>
+      Every book features an <strong>FMC + MMC</strong> and delivers emotional tension,
+      unforgettable fictional men, and stories that make us cry, swoon, scream, and spiral together.
+    </p>
+	
+	 <p>
+      We meet 3rd Saturday of Every Month at 11:30 AM for Brunch.
+    </p>
+  </div>
+</section>
+
+<!-- READS -->
+<section id="reads">
+  <h2>📚 Reading Flow</h2>
+
+  <div class="card book">
+    <img src="bookcovers/penpal.png">
+    <div class="book-details">
+      <p><span class="label">Completed</span><br>Pen Pal — J.T. Geissinger</p>
+      <div class="ratings">
+        <div class="rating-block">
+          <div class="rating-label">Overall</div>
+          <div class="stars">⭐⭐⭐⭐☆</div>
+          <div class="rating-number">4.0</div>
+        </div>
+        <div class="rating-block">
+          <div class="rating-label">Plot Twist</div>
+          <div class="stars">🔥🔥🔥🔥🔥</div>
+          <div class="rating-number">5.0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card book">
+    <img src="bookcovers/part-of-your-world.png">
+    <div class="book-details">
+      <p><span class="label">Completed</span><br>Part of Your World — Abby Jimenez</p>
+      <div class="ratings">
+        <div class="rating-block">
+          <div class="rating-label">Overall</div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <div class="rating-number">4.8</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURRENT -->
+  <div class="card book">
+    <img src="bookcovers/hooked.png">
+    <div class="book-details">
+      <p><span class="label">Current Read</span><br>Hooked — Emily McIntire</p>
+      <p>📅 Started: 23 Dec 2025<br>🏁 Ends: 21 Feb 2026</p>
+    </div>
+  </div>
+
+  <!-- UPCOMING -->
+	<div class="card book">
+	  <div class="book-placeholder">
+		📖<br>Coming Soon
+	  </div>
+
+	  <div class="book-details">
+		<p><span class="label">Upcoming Read</span><br>To be decided</p>
+		<p>📅 Starts: 22 Feb 2026</p>
+		<p class="muted">Selected after the February meetup</p>
+	  </div>
+	</div>
+
+
+	<div class="card book">
+	  <div class="book-placeholder">
+		📖<br>Coming Soon
+	  </div>
+
+	  <div class="book-details">
+		<p><span class="label">Upcoming Read</span><br>To be decided</p>
+		<p>📅 Starts: 22 Mar 2026</p>
+		<p class="muted">Selected after the March meetup</p>
+	  </div>
+	</div>
+
+
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <h2>📸 Meetup Timeline</h2>
+
+  <div class="card">
+    <h3>📅 22 December 2025 — Pen Pal</h3>
+    <p>📍 Café Jasmin, Munich</p>
+
+    <div class="photo-grid">
+      <div class="photo-card"><img src="images/2025-12-22-penpal/photo1.jpeg"></div>
+      <div class="photo-card"><img src="images/2025-12-22-penpal/photo2.jpeg"></div>
+      <div class="photo-card"><img src="images/2025-12-22-penpal/photo3.jpeg"></div>
+      <div class="photo-card"><img src="images/2025-12-22-penpal/photo4.jpeg"></div>
+    </div>
+
+    <div class="notes">
+      <ul>
+        <li>😭 Everyone was completely shocked by the plot twist.</li>
+        <li>😱 The reveal made us rethink everything.</li>
+        <li>🔥 Once started, we couldn’t stop reading.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📅 17 January 2026 — Part of Your World</h3>
+    <p>📍 Café Puck, Munich</p>
+
+    <div class="photo-grid">
+      <div class="photo-card"><img src="images/2026-01-17-part-of-your-world/photo1.jpeg"></div>
+      <div class="photo-card"><img src="images/2026-01-17-part-of-your-world/photo2.jpeg"></div>
+      <div class="photo-card"><img src="images/2026-01-17-part-of-your-world/photo3.jpeg"></div>
+    </div>
+
+    <div class="notes">
+      <ul>
+        <li>😭 Daniel is the sweetest, kindest book boyfriend ever.</li>
+        <li>💖 Alexis and Daniel’s story is going to stay with us for a long time.</li>
+      </ul>
+    </div>
+  </div>
+  
+   <!-- UPCOMING MEETUP PLACEHOLDER -->
+  <div class="card">
+    <h3>📅 21 February 2026 — Hooked</h3>
+    <p>📍 Location TBD</p>
+
+    <div class="photo-grid">
+      <div class="photo-card">
+        <div class="placeholder-box">Photos coming soon 📸</div>
+      </div>
+      <div class="photo-card">
+        <div class="placeholder-box">Notes coming soon ✍️</div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <ul>
+        <li>🗣️ Thoughts, emotions, and chaos will be added after the meetup.</li>
+      </ul>
+    </div>
+  </div>
+  
+</section>
+
+<!-- BOOKSHELF -->
+<section id="bookshelf">
+  <h2>📚 Our Bookshelf</h2>
+  <div class="card bookshelf">
+    <img src="bookcovers/penpal.png">
+    <img src="bookcovers/part-of-your-world.png">
+    <img src="bookcovers/hooked.png">
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section id="recommendations">
+  <h2>📚 Book Recommendations</h2>
+
+  <p class="reco-intro">
+    These are books recommended by us during recent meetups.
+    We try to choose future reads from this list — ideally titles that
+    <strong>none of us have read before</strong> — so every pick feels fresh and exciting.
+    This list will continue to grow over time 💕
+  </p>
+
+  <div class="card reco-card">
+    <h3>🔥 Dark Romance / Intense</h3>
+    <ul>
+      <li>Credence — Penelope Douglas</li>
+      <li>Corrupt (Devil’s Night Series) — Penelope Douglas</li>
+      <li>Legacy of Gods — Rina Kent</li>
+      <li>Cat and Mouse Duet — H.D. Carlton</li>
+      <li>Lights Out — Navessa Allen</li>
+      <li>Little Stranger — Leigh Rivers</li>
+    </ul>
+  </div>
+
+  <div class="card reco-card">
+    <h3>💕 Romance / Contemporary</h3>
+    <ul>
+      <li>Yours Truly — Abby Jimenez</li>
+      <li>The Love Hypothesis — Ali Hazelwood</li>
+      <li>Problematic Summer Romance — Ali Hazelwood</li>
+      <li>Say You’ll Remember Me — Abby Jimenez</li>
+      <li>Pictures of You — Emma Gray</li>
+      <li>Slow Dance — Rainbow Rowell</li>
+    </ul>
+  </div>
+
+  <div class="card reco-card">
+    <h3>🌊 Summer Romance</h3>
+    <ul>
+      <li>Every Summer After — Carley Fortune</li>
+      <li>One Golden Summer — Carley Fortune</li>
+      <li>Summer Romance — Annabel Monaghan</li>
+    </ul>
+  </div>
+
+  <div class="card reco-card">
+    <h3>🧚 Fantasy Romance</h3>
+    <ul>
+      <li>Once Upon a Broken Heart — Stephanie Garber</li>
+      <li>Powerless — Lauren Roberts</li>
+      <li>Red Queen — Victoria Aveyard</li>
+    </ul>
+  </div>
+
+  <div class="card reco-card">
+    <h3>💔 Emotional Reads</h3>
+    <ul>
+      <li>You Have Reached Sam — Dustin Thao</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  💕 Built with books, feelings, and fictional men
+</footer>
+
+</body>
+</html>
